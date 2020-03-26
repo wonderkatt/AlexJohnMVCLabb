@@ -5,11 +5,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BloodBowlTeamManager
 {
-    class BBContext : DbContext
+    public class BBContext : DbContext
     {
-        string accountEndpoint = "https://localhost:8081";
-        string accountKey = "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==";
-        string databaseName = "BBDatabase";
         public BBContext()
         { }
 
@@ -29,7 +26,7 @@ namespace BloodBowlTeamManager
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseCosmos(accountEndpoint, accountKey, databaseName);
+            optionsBuilder.UseSqlServer("Data Source = localhost; Initial Catalog = master; Integrated Security = True");
             optionsBuilder.UseLazyLoadingProxies();
         }
     }
