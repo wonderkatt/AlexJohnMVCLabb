@@ -32,23 +32,6 @@ namespace BloodBowlTeamManager.Controllers
 
             return rawTeams.Select((team) => mapper.Map<TeamOverviewResponse>(team));
 
-            //List<object> serializedTeams = new List<object>();
-
-            //for (int i = 0; i < rawTeams.Count; i++)
-            //{
-            //    serializedTeams.Add(new
-            //    {
-            //        id = rawTeams[i].Id,
-            //        teamName = rawTeams[i].TeamName,
-            //        coach = rawTeams[i].Coach.Id,
-            //        race = rawTeams[i].Race.RaceName,
-            //        reRolls = rawTeams[i].NumberOfReRolls,
-            //        teamValue = rawTeams[i].Teamvalue,
-            //        players = GetPlayers(rawTeams[i])
-            //    });
-            //}
-            //return serializedTeams;
-
         }
         [Route("players")]
         [HttpGet]
@@ -58,48 +41,6 @@ namespace BloodBowlTeamManager.Controllers
 
             return rawPlayers.Select((player) => mapper.Map<TeamPlayerDetailsResponse>(player));
 
-
         }
-
-        private void GetTeam()
-        {
-            context.Teams.Select(
-                (team) => new
-                    {
-                        Id = team.Id,
-                        teamName = team.TeamName,
-                        players = team.Players.Select((player) => new
-                        {
-
-                        })
-
-                    } 
-                ); 
-        }
-
-        //private object GetPlayers(Team team)
-        //{
-        //    List<Player> rawPlayers = team.Players.ToList();
-
-        //    List<object> serializedPlayers = new List<object>();
-
-        //    for (int i = 0; i < rawPlayers.Count; i++)
-        //    {
-        //        serializedPlayers.Add(new 
-        //        {
-        //            Id = rawPlayers[i].Id,
-        //            Number = rawPlayers[i].Number, 
-        //            Name = rawPlayers[i].PlayerName,
-        //            Position = rawPlayers[i].Position,
-        //            Movement = rawPlayers[i].MovementValue,
-        //            Strength = rawPlayers[i].StrengthValue,
-        //            Agility = rawPlayers[i].AgilityValue,
-        //            ArmourValue = rawPlayers[i].ArmourValue,
-        //            Skills = rawPlayers[i].
-
-
-        //        });
-        //    }
-        //}
     }
 }
