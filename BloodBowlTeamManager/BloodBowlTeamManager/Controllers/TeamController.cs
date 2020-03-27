@@ -1,12 +1,8 @@
 ﻿using AutoMapper;
-using BloodBowlTeamManager.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace BloodBowlTeamManager.Controllers
 {
@@ -30,7 +26,6 @@ namespace BloodBowlTeamManager.Controllers
             .Select((team) => mapper.Map<TeamOverviewResponse>(team))
             .ToList();
 
-        
         [Route("players")]
         [HttpGet]
         public IEnumerable<object> GetPlayers() => context.Players.ToList()
@@ -38,6 +33,5 @@ namespace BloodBowlTeamManager.Controllers
             .Select((player) => mapper.Map<TeamPlayerDetailsResponse>(player))
             .ToList();
 
-        
     } 
 }
