@@ -5,7 +5,7 @@ export class TeamOverview extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { teamToDisplay: [], loading: true };
+        this.state = { teamToDisplay: '', loading: true };
     }
 
     componentDidMount() {
@@ -15,10 +15,28 @@ export class TeamOverview extends Component {
     static renderTeamOverview(team) {
         return (
             <table className='table table-striped' aria-labelledby="tabelLabel">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Coach</th>
+                        <th>Race</th>
+                        <th>Team Value</th>
+                    </tr>
+                </thead>
+                <tbody> 
+                    {
+                        <tr key={teamToDisplay.Id}> 
+                            <td>teamToDisplay.Id</td>
+                            <td>teamToDisplay.Coach</td>
+                            <td>teamToDisplay.Race</td>
+                            <td>teamToDisplay.Teamvalue</td>
+                        </tr>
+                    }
+                </tbody>
             </table>
-        );
-    }
-
+        );//Dessa propsen kanske ska vara skrivna med gemener både här och i backend? Se tutorial.
+    }// Vet inte heller om Key behövs, kanske inte behövs när man endast renderar ett objekt
+    
     render() {
         let contents = this.state.loading
             ? <p><em>Loading...</em></p>
