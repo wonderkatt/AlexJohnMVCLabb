@@ -26,21 +26,18 @@ namespace BloodBowlTeamManager.Controllers
         }
         [Route("overview")]
         [HttpGet]
-        public IEnumerable<object> Get()
-        {
-            List<Team> rawTeams = context.Teams.ToList();
+        public IEnumerable<object> Get() => context.Teams.ToList()
+            .Select((team) => mapper.Map<TeamOverviewResponse>(team))
+            .ToList();
 
-            return rawTeams.Select((team) => mapper.Map<TeamOverviewResponse>(team));
-
-        }
+        
         [Route("players")]
         [HttpGet]
-        public IEnumerable<object> GetPlayers()
-        {
-            var rawPlayers = context.Players.Where(p=>p.isAvailable == false).ToList();
+        public IEnumerable<object> GetPlayers() => context.Players.ToList()
+            .Where(p=>p.isAvailable == false)
+            .Select((player) => mapper.Map<TeamPlayerDetailsResponse>(player))
+            .ToList();
 
-            return rawPlayers.Select((player) => mapper.Map<TeamPlayerDetailsResponse>(player));
-
-        }
-    }
+        
+    } 
 }
