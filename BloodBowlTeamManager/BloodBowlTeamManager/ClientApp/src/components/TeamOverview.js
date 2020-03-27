@@ -37,7 +37,7 @@ export class TeamOverview extends Component {
                 </tbody>
             </table>
         );
-    }// Vet inte heller om Key behövs, kanske inte behövs när man endast renderar ett objekt
+    }
     
     render() {
         let contents = this.state.loading
@@ -53,7 +53,7 @@ export class TeamOverview extends Component {
     }
 
     async populateTeamData() {
-        const response = await fetch('/team/overview'); //Är denna rätt?
+        const response = await fetch('/team/overview'); 
         const data = await response.json();
         this.setState({ teamToDisplay: data, loading: false });
     }
