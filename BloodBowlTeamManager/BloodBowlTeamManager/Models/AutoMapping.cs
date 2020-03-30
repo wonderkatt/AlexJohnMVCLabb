@@ -55,6 +55,11 @@ namespace BloodBowlTeamManager.Models
 
             CreateMap<SpecialSkill, SpecialSkillDTO>().ReverseMap();
 
+            CreateMap<Player, TeamPlayersOverviewResponse>().ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.PlayerName, opt => opt.MapFrom(src => src.PlayerName))
+                .ForMember(dest => dest.Number, opt => opt.MapFrom(src => src.Number))
+                .ForMember(dest => dest.Position, opt => opt.MapFrom(src => src.Position));
+
         }
     }
 }
