@@ -1,4 +1,6 @@
 ﻿import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+
 
 export class TeamOverview extends Component {
     static displayName = TeamOverview.name;
@@ -32,13 +34,14 @@ export class TeamOverview extends Component {
                             <td>{team.coach}</td>
                             <td>{team.race}</td>
                             <td>{team.teamvalue}</td>
+                            <td><Link to={{ pathname: '/team/players', state: [{ id: team.id }] }}> Team </Link></td>
                         </tr>
                     )}
                 </tbody>
             </table>
         );
     }
-    
+    //
     render() {
         let contents = this.state.loading
             ? <p><em>Loading...</em></p>

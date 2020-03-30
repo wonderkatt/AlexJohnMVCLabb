@@ -39,6 +39,9 @@ export class NavMenu extends Component {
                 <NavItem>
                   <NavLink tag={Link} className="text-dark" to="/team/overview">Show Team Overview</NavLink>
                 </NavItem>
+                 <NavItem>
+                     <NavLink tag={Link} className="text-dark" to="/team/players">Show Team Players</NavLink>
+                 </NavItem>
               </ul>
             </Collapse>
           </Container>
@@ -47,3 +50,4 @@ export class NavMenu extends Component {
     );
   }
 }
+

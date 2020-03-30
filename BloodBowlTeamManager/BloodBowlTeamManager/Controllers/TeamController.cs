@@ -28,9 +28,9 @@ namespace BloodBowlTeamManager.Controllers
 
         [Route("players")]
         [HttpGet]
-        public IEnumerable<object> GetPlayers() => context.Players.ToList()
-            .Where(p=>p.isAvailable == false)
-            .Select((player) => mapper.Map<TeamPlayerDetailsResponse>(player))
+        public IEnumerable<object> GetPlayers(string teamId) => context.Players.ToList()
+            .Where(p=>p.isAvailable == false && p.Team.Id == teamId)
+            .Select((player) => mapper.Map<TeamPlayersOverviewResponse>(player))
             .ToList();
 
     } 
