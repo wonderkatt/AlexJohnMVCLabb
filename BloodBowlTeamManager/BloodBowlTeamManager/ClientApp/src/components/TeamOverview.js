@@ -34,7 +34,12 @@ export class TeamOverview extends Component {
                             <td>{team.coach}</td>
                             <td>{team.race}</td>
                             <td>{team.teamvalue}</td>
-                            <td><Link to={{ pathname: '/team/players', state: [{ id: team.id }] }}> Team </Link></td>
+                            <td><Link to={{
+                                pathname: '/team/players',
+                                state: {
+                                    id: team.id
+                                }
+                            }}> Team </Link></td>
                         </tr>
                     )}
                 </tbody>

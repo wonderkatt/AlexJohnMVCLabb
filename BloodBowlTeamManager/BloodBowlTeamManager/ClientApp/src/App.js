@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { Layout } from './components/Layout';
 import { Home } from './components/Home';
 import { FetchData } from './components/FetchData';
@@ -17,7 +17,7 @@ export default class App extends Component {
   render () {
     return (
       <Layout>
-        <Route exact path='/' component={Home} />
+        <Route exact path='/' exact component={Home} />
         <Route path='/counter' component={Counter} />
         <Route path='/team/overview' component={TeamOverview} />
         <Route path='/team/players' component={TeamPlayersOverview} />

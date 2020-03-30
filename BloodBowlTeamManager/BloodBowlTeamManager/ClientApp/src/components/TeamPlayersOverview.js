@@ -57,7 +57,7 @@ export class TeamPlayersOverview extends Component {
     }
 
     async populatePlayersData(teamid) {
-        const response = await fetch('/team/players?=' + { teamid });
+        const response = await fetch('/team/players?teamid=' +  teamid );
         const data = await response.json();
         this.setState({ playersToDisplay: data, loading: false });
     }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BloodBowlTeamManager.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
@@ -28,10 +29,15 @@ namespace BloodBowlTeamManager.Controllers
 
         [Route("players")]
         [HttpGet]
-        public IEnumerable<object> GetPlayers(string teamId) => context.Players.ToList()
-            .Where(p=>p.isAvailable == false && p.Team.Id == teamId)
+        public IEnumerable<object> GetPlayers([FromQuery(Name = "teamid")]string teamid)
+        {W
+
+            return context.Players.ToList()
+            .Where(p => p.isAvailable == false && p.Team.Id == teamid)
             .Select((player) => mapper.Map<TeamPlayersOverviewResponse>(player))
             .ToList();
+        }
+        
 
     } 
 }
