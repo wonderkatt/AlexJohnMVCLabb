@@ -30,7 +30,7 @@ namespace BloodBowlTeamManager.Controllers
         [Route("players")]
         [HttpGet]
         public IEnumerable<object> GetPlayers([FromQuery(Name = "teamid")]string teamid)
-        {W
+        {
 
             return context.Players.ToList()
             .Where(p => p.isAvailable == false && p.Team.Id == teamid)

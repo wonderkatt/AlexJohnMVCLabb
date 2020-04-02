@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace BloodBowlTeamManager
 {
-    public class BBContext : DbContext
+    public class BBContext : IdentityDbContext<User>
     {
         public BBContext()
         { }
@@ -24,9 +25,17 @@ namespace BloodBowlTeamManager
         {
         }
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.ApplyConfiguration(new RoleConfiguration());
+
+            
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source = localhost; Initial Catalog = master; Integrated Security = True");
+            optionsBuilder.UseSqlServer("Data Source=localhost;Initial Catalog=BBmanager;Integrated Security=True");
             optionsBuilder.UseLazyLoadingProxies();
         }
     }

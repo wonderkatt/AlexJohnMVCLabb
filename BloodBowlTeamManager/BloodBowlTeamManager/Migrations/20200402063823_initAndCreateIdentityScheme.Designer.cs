@@ -4,14 +4,16 @@ using BloodBowlTeamManager;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BloodBowlTeamManager.Migrations
 {
     [DbContext(typeof(BBContext))]
-    partial class BBContextModelSnapshot : ModelSnapshot
+    [Migration("20200402063823_initAndCreateIdentityScheme")]
+    partial class initAndCreateIdentityScheme
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -359,22 +361,6 @@ namespace BloodBowlTeamManager.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "eb1f1c7a-ef0a-4b5d-a385-ae6b9e2fe53d",
-                            ConcurrencyStamp = "9d82beef-037d-4157-99d3-f174179d0c2a",
-                            Name = "Visitor",
-                            NormalizedName = "VISITOR"
-                        },
-                        new
-                        {
-                            Id = "b7421e0d-fdd9-42ae-a832-1192d60d0b90",
-                            ConcurrencyStamp = "c4a798e9-e68e-4db5-9c8e-a22bb509d0d1",
-                            Name = "Administrator",
-                            NormalizedName = "ADMINISTRATOR"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

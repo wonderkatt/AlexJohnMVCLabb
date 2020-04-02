@@ -2,6 +2,7 @@ using AutoMapper;
 using BloodBowlTeamManager.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,6 +24,9 @@ namespace BloodBowlTeamManager
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<BBContext>();
+
+            services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<BBContext>();
+
             services.AddControllersWithViews();
 
             var mappingConfig = new MapperConfiguration(mc =>
