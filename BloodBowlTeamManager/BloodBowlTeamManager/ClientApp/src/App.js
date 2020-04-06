@@ -6,6 +6,7 @@ import { FetchData } from './components/FetchData';
 import { Counter } from './components/Counter';
 import { TeamOverview } from './components/TeamOverview';
 import { TeamPlayersOverview } from './components/TeamPlayersOverview';
+import { Registration } from './components/Registration';
 
 
 
@@ -21,6 +22,7 @@ export default class App extends Component {
         <Route path='/counter' component={Counter} />
         <Route path='/team/overview' component={TeamOverview} />
         <Route path='/team/players' component={TeamPlayersOverview} />
+        <Route path='/registration' component={Registration} />
             
       </Layout>
     );
