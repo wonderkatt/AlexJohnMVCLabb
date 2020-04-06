@@ -25,7 +25,14 @@ namespace BloodBowlTeamManager
         {
             services.AddDbContext<BBContext>();
 
-            services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<BBContext>();
+            services.AddIdentity<User, IdentityRole>(opt => 
+            {
+                opt.Password.RequiredLength = 7;
+            }).AddEntityFrameworkStores<BBContext>();
+
+            services.ConfigureApplicationCookie(o => o.LoginPath = "/Account/Login");
+            //services.AddAntiforgery(options => options.HeaderName = "X-CSRF-TOKEN");
+
 
             services.AddControllersWithViews();
 
@@ -68,6 +75,8 @@ namespace BloodBowlTeamManager
             app.UseSpaStaticFiles();
 
             app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
@@ -75,7 +84,13 @@ namespace BloodBowlTeamManager
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
             });
-
+            //app.Use(next => context =>
+            //{
+            //    if (context.Request.Path == "/")
+            //    {
+            //        var tokens = Antiforgery.GetAndStoreTokens(context);
+            //    }
+            //});
             app.UseSpa(spa =>
             {
                 spa.Options.SourcePath = "ClientApp";

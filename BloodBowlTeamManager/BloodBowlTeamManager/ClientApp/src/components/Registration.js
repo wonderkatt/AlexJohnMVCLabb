@@ -20,7 +20,7 @@ export class Registration extends Component {
             <hr />
             <div className="row">
                 <div className="col-md-4">
-                    <form onSubmit={this.OnSubmit}>
+                    <form method="post" onSubmit={this.OnSubmit}>
                         <div className="text-danger"></div>
                         <div className="form-group">
                             <label className="control-label"> Coach Name</label>
@@ -59,9 +59,16 @@ export class Registration extends Component {
 
     async OnSubmit(e) {
         e.preventDefault();
-        let fetchConfig = { method: "POST", headers: {"Content-Type": "application/json" }, body: JSON.stringify(this.state)}
+        let fetchConfig = {
+            method: "POST",
+            headers: {
+                "X-CSRF-TOKEN": "token",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(this.state)
+        }
         let response = await fetch("/account/registration", fetchConfig);
-
+        alert(response.status);
     }
 }
 

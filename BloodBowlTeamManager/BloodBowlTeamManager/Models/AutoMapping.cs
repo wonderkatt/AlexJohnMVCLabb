@@ -55,17 +55,28 @@ namespace BloodBowlTeamManager.Models
 
             CreateMap<SpecialSkill, SpecialSkillDTO>().ReverseMap();
 
-            CreateMap<Player, TeamPlayersOverviewResponse>().ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+            CreateMap<Player, TeamPlayersOverviewResponse>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.PlayerName, opt => opt.MapFrom(src => src.PlayerName))
                 .ForMember(dest => dest.Number, opt => opt.MapFrom(src => src.Number))
                 .ForMember(dest => dest.Position, opt => opt.MapFrom(src => src.Position));
 
-            CreateMap<UserRegistrationModel, UserRegistrationModelDTO>().ForMember(dest => dest.CoachName, opt => opt.MapFrom(src => src.CoachName))
+            CreateMap<UserRegistrationModel, UserRegistrationModelDTO>()
+                .ForMember(dest => dest.CoachName, opt => opt.MapFrom(src => src.CoachName))
                 .ForMember(dest => dest.Password, opt => opt.MapFrom(src => src.Password))
                 .ForMember(dest => dest.ConfirmPassword, opt => opt.MapFrom(src => src.ConfirmPassword))
-                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email)).ReverseMap();
+                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
+                .ReverseMap();
 
-            CreateMap<UserRegistrationModel, User>().ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.CoachName));
+            CreateMap<UserRegistrationModel, User>()
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.CoachName));
+
+
+            CreateMap<UserLoginModel, UserLoginModelDTO>()
+                .ForMember(dest => dest.CoachName, opt => opt.MapFrom(src => src.CoachName))
+                .ForMember(dest => dest.Password, opt => opt.MapFrom(src => src.Password))
+                .ReverseMap();
+
         }
     }
 }

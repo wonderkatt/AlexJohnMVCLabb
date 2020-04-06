@@ -4,14 +4,16 @@ using BloodBowlTeamManager;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BloodBowlTeamManager.Migrations
 {
     [DbContext(typeof(BBContext))]
-    partial class BBContextModelSnapshot : ModelSnapshot
+    [Migration("20200406102513_addUsers")]
+    partial class addUsers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -363,15 +365,15 @@ namespace BloodBowlTeamManager.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "ba8aba60-5435-405d-ad16-2aa66c508539",
-                            ConcurrencyStamp = "e17abbd3-fd1f-43b7-acb0-711be04fabf7",
+                            Id = "f09d2652-0c3d-4d76-9810-59e093225fdc",
+                            ConcurrencyStamp = "07ae6d64-4171-42e5-9e11-655a0940c54b",
                             Name = "Visitor",
                             NormalizedName = "VISITOR"
                         },
                         new
                         {
-                            Id = "f1997569-aec3-4581-88dd-b672ccc7a2a0",
-                            ConcurrencyStamp = "440ec143-1f15-45b2-ba7a-b6d886ffb8c3",
+                            Id = "dd133bd1-ab8b-4932-992d-84de74ba09d5",
+                            ConcurrencyStamp = "b6ccfd61-6d06-4f1c-9a09-32a2349743e3",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });

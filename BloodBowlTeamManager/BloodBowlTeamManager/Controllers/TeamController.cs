@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BloodBowlTeamManager.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
@@ -21,6 +22,7 @@ namespace BloodBowlTeamManager.Controllers
             this.logger = logger;
             this.mapper = mapper;
         }
+        //[Authorize]
         [Route("overview")]
         [HttpGet]
         public IEnumerable<object> Get() => context.Teams.ToList()
