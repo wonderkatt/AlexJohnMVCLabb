@@ -26,9 +26,6 @@ export default class App extends Component {
         <Route path='/registration' component={Registration} />
         <Route path='/login' component={Login} />
         <Route path='/logout' component={Logout} />
-
-
-            
       </Layout>
     );
   }

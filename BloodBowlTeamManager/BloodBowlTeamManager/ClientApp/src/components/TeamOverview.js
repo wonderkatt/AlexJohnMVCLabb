@@ -7,14 +7,20 @@ export class TeamOverview extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { teamToDisplay: [], loading: true };
+        this.state = {
+            teamToDisplay: [],
+            loading: true,
+            coachId: ""
+        };
+        this.createTeam = this.createTeam.bind(this);
+        //this.renderTeamOverview = this.renderTeamOverview.bind(this);
     }
 
     componentDidMount() {
         this.populateTeamData();
     }
 
-    static renderTeamOverview(teams) {
+    static renderTeamOverview(teams, thisParent) {
         return (
             <table className='table table-striped' aria-labelledby="tabelLabel">
                 <thead>
@@ -39,18 +45,22 @@ export class TeamOverview extends Component {
                                 state: {
                                     id: team.id
                                 }
-                            }}> Team </Link></td>
+                            }}> Go to Team </Link></td>
                         </tr>
                     )}
+                    <tr>
+                        <td>
+                            <Link className="btn btn-primary" onClick={thisParent.createTeam}>Create Team</Link>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         );
     }
-    //
     render() {
         let contents = this.state.loading
             ? <p><em>Loading...</em></p>
-            : TeamOverview.renderTeamOverview(this.state.teamToDisplay);
+            : TeamOverview.renderTeamOverview(this.state.teamToDisplay, this);
 
         return (
             <div>
@@ -60,9 +70,25 @@ export class TeamOverview extends Component {
         );
     }
 
+
     async populateTeamData() {
         const response = await fetch('/team/overview'); 
         const data = await response.json();
-        this.setState({ teamToDisplay: data, loading: false });
+        this.setState({ teamToDisplay: data, loading: false, coachId: data[0].coach});
+    }
+
+    async createTeam(e) {
+        e.preventDefault();
+        let fetchConfig = {
+            method: "POST",
+            headers: {
+                "Content-Type" : "application/json"
+            },
+            body: JSON.stringify(this.state.coachId)
+        }
+        const response = await fetch('/team/create', fetchConfig);
+        const data = await response.json();
+        //Data gets success or fail for team
+        this.populateTeamData();
     }
 }
