@@ -13,7 +13,6 @@ export class TeamOverview extends Component {
             coachId: ""
         };
         this.createTeam = this.createTeam.bind(this);
-        //this.renderTeamOverview = this.renderTeamOverview.bind(this);
     }
 
     componentDidMount() {
@@ -25,7 +24,6 @@ export class TeamOverview extends Component {
             <table className='table table-striped' aria-labelledby="tabelLabel">
                 <thead>
                     <tr>
-                        <th>Id</th>
                         <th>Team Name</th>
                         <th>Coach</th>
                         <th>Race</th>
@@ -35,7 +33,6 @@ export class TeamOverview extends Component {
                 <tbody> 
                     {teams.map(team=>
                         <tr key={team.id}> 
-                            <td>{team.id}</td>
                             <td>{team.teamName}</td>
                             <td>{team.coach}</td>
                             <td>{team.race}</td>
@@ -50,7 +47,7 @@ export class TeamOverview extends Component {
                     )}
                     <tr>
                         <td>
-                            <Link className="btn btn-primary" onClick={thisParent.createTeam}>Create Team</Link>
+                            <button className="btn btn-primary" onClick={thisParent.createTeam}>Create Team</button>
                         </td>
                     </tr>
                 </tbody>
@@ -88,7 +85,7 @@ export class TeamOverview extends Component {
         }
         const response = await fetch('/team/create', fetchConfig);
         const data = await response.json();
-        //Data gets success or fail for team
+        //Data gets success or fail for team creation
         this.populateTeamData();
     }
 }

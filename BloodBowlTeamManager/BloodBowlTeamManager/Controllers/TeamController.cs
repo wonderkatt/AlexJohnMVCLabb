@@ -41,6 +41,29 @@ namespace BloodBowlTeamManager.Controllers
             .Select((player) => mapper.Map<TeamPlayersOverviewResponse>(player))
             .ToList();
         }
+
+        [Route("players/positions")]
+        [HttpGet]
+        public IEnumerable<object> GetPositionals([FromQuery(Name = "teamid")]string teamid)
+        {
+            Team team = context.Teams
+                .Where(t => t.Id == teamid)
+                .FirstOrDefault();
+
+            if (team == null)
+            {
+                return new List<Player>();
+            }
+            Race race = context.Races
+                .Where(r => r.Id == team.Race.Id)
+                .First();
+
+            return context.Players.ToList()
+            .Where(p => p.isAvailable == true && race.Id == p.Race.Id)
+            .Select((player) => mapper.Map<TeamPlayersOverviewResponse>(player))
+            .ToList();
+        }
+
         [Route("create")]
         [HttpPost]
         public async ValueTask<Result> CreateTeam([FromBody]string coachId)
@@ -79,19 +102,21 @@ namespace BloodBowlTeamManager.Controllers
             return httpResponse;
             
         }
+        
+        
         [Route("players/create")]
         [HttpPost]
-        public async ValueTask<Result> CreatePlayer([FromBody]string teamId)
+        public async ValueTask<Result> CreatePlayer([FromBody]BuyPlayerModel formData)
         {
             Result httpResponse = new Result();
             Team team;
 
             if (context.Teams.ToList()
-                .Where(team => team.Id == teamId)
+                .Where(team => team.Id == formData.TeamId)
                 .Any())
             {
                 team = context.Teams
-                    .Where(t => t.Id == teamId)
+                    .Where(t => t.Id == formData.TeamId)
                     .First();
             }
             else
@@ -100,13 +125,41 @@ namespace BloodBowlTeamManager.Controllers
                 httpResponse.Errors.Add("No team with that id could be found.");
 
                 return httpResponse;
-            }      
+            }
+            Race race = context.Races
+                .Where(r => r.Id == team.Race.Id)
+                .First();
+
+            Player modelPlayer = context.Players
+                .Where(p => p.Position == formData.PlayerPosition && p.isAvailable == true && p.Race.Id == race.Id)
+                .First();
+
+            Player newPlayer = new Player
+            {
+                Id = Guid.NewGuid().ToString(),
+                AgilitySkills = modelPlayer.AgilitySkills,
+                StrengthSkills = modelPlayer.StrengthSkills,
+                GeneralSkills = modelPlayer.GeneralSkills,
+                PassingSkills = modelPlayer.PassingSkills,
+                SpecialSkills = modelPlayer.SpecialSkills,
+                Mutations = modelPlayer.Mutations,
+                Race = race,
+                MovementValue = modelPlayer.MovementValue,
+                StrengthValue = modelPlayer.StrengthValue,
+                AgilityValue = modelPlayer.AgilityValue,
+                ArmourValue = modelPlayer.ArmourValue,
+                isAvailable = false,
+                Team = team,
+                PlayerName = formData.PlayerName,
+                Position = modelPlayer.Position,
+                Cost = modelPlayer.Cost
+            };
+
+            context.Players.Add(newPlayer);
             context.SaveChanges();
             httpResponse.Success = true;
             return httpResponse;
 
         }
-
-
     } 
 }
