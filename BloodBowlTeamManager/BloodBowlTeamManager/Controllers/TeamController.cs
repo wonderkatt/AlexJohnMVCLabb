@@ -134,6 +134,9 @@ namespace BloodBowlTeamManager.Controllers
                 .Where(p => p.Position == formData.PlayerPosition && p.isAvailable == true && p.Race.Id == race.Id)
                 .First();
 
+            int number = context.Players.Where(p => p.Team.Id == formData.TeamId).Count()+1;
+           
+
             Player newPlayer = new Player
             {
                 Id = Guid.NewGuid().ToString(),
@@ -152,7 +155,8 @@ namespace BloodBowlTeamManager.Controllers
                 Team = team,
                 PlayerName = formData.PlayerName,
                 Position = modelPlayer.Position,
-                Cost = modelPlayer.Cost
+                Cost = modelPlayer.Cost,
+                Number = number
             };
 
             context.Players.Add(newPlayer);

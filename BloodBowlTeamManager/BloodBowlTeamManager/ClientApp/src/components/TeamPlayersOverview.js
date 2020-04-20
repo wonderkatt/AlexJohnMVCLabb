@@ -16,7 +16,7 @@ export class TeamPlayersOverview extends Component {
 
     componentDidMount() {
         
-        const teamid = this.props.location.state.id;
+        const teamid = this.props.location.state.teamid;
         this.populatePlayersData(teamid);
     }
 
@@ -35,7 +35,7 @@ export class TeamPlayersOverview extends Component {
                     {players.map(player =>
                         <tr key={player.id}>
                             <td>{player.number}</td>
-                            <td>{player.playername}</td>
+                            <td>{player.playerName}</td>
                             <td>{player.position}</td>
                             <td>{player.cost}</td>                        
                         </tr>

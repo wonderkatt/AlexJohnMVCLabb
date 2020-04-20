@@ -53,7 +53,7 @@ export class Registration extends Component {
     }
     HandleChange = (e) => {
         this.setState({ [e.target.name]: e.target.value })
-        
+        console.log(this.state);
     }
 
 

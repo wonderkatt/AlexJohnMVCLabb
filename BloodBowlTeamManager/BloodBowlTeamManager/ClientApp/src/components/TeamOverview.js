@@ -40,7 +40,7 @@ export class TeamOverview extends Component {
                             <td><Link to={{
                                 pathname: '/team/players',
                                 state: {
-                                    id: team.id
+                                    teamid: team.id
                                 }
                             }}> Go to Team </Link></td>
                         </tr>
@@ -71,7 +71,9 @@ export class TeamOverview extends Component {
     async populateTeamData() {
         const response = await fetch('/team/overview'); 
         const data = await response.json();
+        
         this.setState({ teamToDisplay: data, loading: false, coachId: data[0].coach});
+       
     }
 
     async createTeam(e) {

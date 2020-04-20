@@ -363,15 +363,15 @@ namespace BloodBowlTeamManager.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "ba8aba60-5435-405d-ad16-2aa66c508539",
-                            ConcurrencyStamp = "e17abbd3-fd1f-43b7-acb0-711be04fabf7",
+                            Id = "4e030f54-e246-48d3-b3d7-2cbb5b0108ad",
+                            ConcurrencyStamp = "5ebc57fa-9af1-4245-92c8-e968ce670888",
                             Name = "Visitor",
                             NormalizedName = "VISITOR"
                         },
                         new
                         {
-                            Id = "f1997569-aec3-4581-88dd-b672ccc7a2a0",
-                            ConcurrencyStamp = "440ec143-1f15-45b2-ba7a-b6d886ffb8c3",
+                            Id = "b654b82f-ac28-4f28-9fdf-1d446da09c02",
+                            ConcurrencyStamp = "37b9de91-9d7e-4bd3-99c4-77afc6ee619c",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
