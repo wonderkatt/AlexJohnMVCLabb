@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,6 +9,8 @@ namespace BloodBowlTeamManager
 {
     public class BBContext : IdentityDbContext<User>
     {
+        private readonly IHttpContextAccessor httpContextAccessor;
+
         public BBContext()
         { }
 
@@ -21,8 +24,9 @@ namespace BloodBowlTeamManager
         public DbSet<PassSkill> PassSkills { get; set; }
         public DbSet<Mutation> Mutations { get; set; }
 
-        public BBContext(DbContextOptions<BBContext> options) : base(options)
+        public BBContext(DbContextOptions<BBContext> options, IHttpContextAccessor httpContextAccessor) : base(options)
         {
+            this.httpContextAccessor = httpContextAccessor;
         }
 
         protected override void OnModelCreating(ModelBuilder builder)

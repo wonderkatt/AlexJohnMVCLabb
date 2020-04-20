@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BloodBowlTeamManager.Models;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -18,12 +19,16 @@ namespace BloodBowlTeamManager
         private readonly IMapper mapper;
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
+        private readonly IHttpContextAccessor httpContextAccessor;
+        private readonly BBContext context;
 
-        public AccountController(IMapper mapper, UserManager<User> userManager, SignInManager<User> signInManager)
+        public AccountController(IMapper mapper, UserManager<User> userManager, SignInManager<User> signInManager, IHttpContextAccessor httpContextAccessor, BBContext context)
         {
             this.mapper = mapper;
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.httpContextAccessor = httpContextAccessor;
+            this.context = context;
         }
 
         //[HttpGet]
@@ -110,8 +115,15 @@ namespace BloodBowlTeamManager
                 httpResponse.Success = result.Succeeded;
                 return httpResponse;
             }
-
+            
             await userManager.AddToRoleAsync(user, "Visitor");
+            Coach coach = new Coach
+            {
+                Id = user.Id,
+                Teams = new List<Team>()
+            };
+            context.Coaches.Add(coach);
+            context.SaveChanges();
             httpResponse.Success = true;
             return httpResponse;
         }

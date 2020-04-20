@@ -2,6 +2,7 @@ using AutoMapper;
 using BloodBowlTeamManager.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
@@ -28,9 +29,16 @@ namespace BloodBowlTeamManager
             services.AddIdentity<User, IdentityRole>(opt => 
             {
                 opt.Password.RequiredLength = 7;
+                opt.Password.RequireDigit = false;
+                opt.Password.RequireUppercase = false;
+                opt.Password.RequireNonAlphanumeric = false;
+
             }).AddEntityFrameworkStores<BBContext>();
 
             services.ConfigureApplicationCookie(o => o.LoginPath = "/Account/Login");
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             //services.AddAntiforgery(options => options.HeaderName = "X-CSRF-TOKEN");
 
 

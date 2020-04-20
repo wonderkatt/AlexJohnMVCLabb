@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 using BloodBowlTeamManager.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace BloodBowlTeamManager.Controllers
@@ -17,19 +19,30 @@ namespace BloodBowlTeamManager.Controllers
         private readonly BBContext context;
         private readonly ILogger<TeamController> logger;
         private readonly IMapper mapper;
+        private readonly IHttpContextAccessor httpContextAccessor;
 
-        public TeamController(BBContext context, ILogger<TeamController> logger, IMapper mapper)
+        public TeamController(BBContext context, ILogger<TeamController> logger, IMapper mapper, IHttpContextAccessor httpContextAccessor)
         {
             this.context = context;
             this.logger = logger;
             this.mapper = mapper;
+            this.httpContextAccessor = httpContextAccessor;
         }
         //[Authorize]
         [Route("overview")]
         [HttpGet]
-        public IEnumerable<object> Get() => context.Teams.ToList()
-            .Select((team) => mapper.Map<TeamOverviewResponse>(team))
-            .ToList();
+        public IEnumerable<object> Get()
+        {
+            string coachId = "";
+            if (httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier) != null)
+            {
+                coachId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            }
+            return context.Teams.ToList()
+                .Where(t => t.Coach.Id == coachId)
+                .Select((team) => mapper.Map<TeamOverviewResponse>(team))
+                .ToList();
+        }
 
         [Route("players")]
         [HttpGet]
@@ -66,8 +79,9 @@ namespace BloodBowlTeamManager.Controllers
 
         [Route("create")]
         [HttpPost]
-        public async ValueTask<Result> CreateTeam([FromBody]string coachId)
+        public async ValueTask<Result> CreateTeam()
         {
+            string coachId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             Result httpResponse = new Result();
             
             Coach coach;

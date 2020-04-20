@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Cookies from 'js-cookie';
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import { Layout } from './components/Layout';
 import { Home } from './components/Home';

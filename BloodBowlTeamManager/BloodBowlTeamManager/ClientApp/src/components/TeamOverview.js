@@ -1,5 +1,7 @@
 ﻿import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Cookies from 'js-cookie';
+
 
 
 export class TeamOverview extends Component {
@@ -10,7 +12,7 @@ export class TeamOverview extends Component {
         this.state = {
             teamToDisplay: [],
             loading: true,
-            coachId: ""
+            cookies:  Cookies.get()
         };
         this.createTeam = this.createTeam.bind(this);
     }
@@ -72,7 +74,8 @@ export class TeamOverview extends Component {
         const response = await fetch('/team/overview'); 
         const data = await response.json();
         
-        this.setState({ teamToDisplay: data, loading: false, coachId: data[0].coach});
+        this.setState({ teamToDisplay: data, loading: false });
+        console.log(this.state);
        
     }
 
@@ -82,8 +85,7 @@ export class TeamOverview extends Component {
             method: "POST",
             headers: {
                 "Content-Type" : "application/json"
-            },
-            body: JSON.stringify(this.state.coachId)
+            }
         }
         const response = await fetch('/team/create', fetchConfig);
         const data = await response.json();
