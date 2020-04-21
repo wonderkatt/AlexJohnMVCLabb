@@ -33,7 +33,7 @@ export class TeamPlayersOverview extends Component {
                 </thead>
                 <tbody>
                     {players.map(player =>
-                        <tr key={player.id}>
+                        <tr key={player.number}>
                             <td>{player.number}</td>
                             <td>{player.playerName}</td>
                             <td>{player.position}</td>

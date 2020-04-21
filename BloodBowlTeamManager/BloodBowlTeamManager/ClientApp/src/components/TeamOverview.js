@@ -1,8 +1,5 @@
 ﻿import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Cookies from 'js-cookie';
-
-
 
 export class TeamOverview extends Component {
     static displayName = TeamOverview.name;
@@ -11,10 +8,8 @@ export class TeamOverview extends Component {
         super(props);
         this.state = {
             teamToDisplay: [],
-            loading: true,
-            cookies:  Cookies.get()
+            loading: true
         };
-        this.createTeam = this.createTeam.bind(this);
     }
 
     componentDidMount() {
@@ -49,7 +44,9 @@ export class TeamOverview extends Component {
                     )}
                     <tr>
                         <td>
-                            <button className="btn btn-primary" onClick={thisParent.createTeam}>Create Team</button>
+                            <Link to={{
+                                pathname: '/team/create'
+                            }} className="btn btn-primary" >Create Team..</Link>
                         </td>
                     </tr>
                 </tbody>
@@ -74,22 +71,7 @@ export class TeamOverview extends Component {
         const response = await fetch('/team/overview'); 
         const data = await response.json();
         
-        this.setState({ teamToDisplay: data, loading: false });
-        console.log(this.state);
-       
+        this.setState({ teamToDisplay: data, loading: false });      
     }
 
-    async createTeam(e) {
-        e.preventDefault();
-        let fetchConfig = {
-            method: "POST",
-            headers: {
-                "Content-Type" : "application/json"
-            }
-        }
-        const response = await fetch('/team/create', fetchConfig);
-        const data = await response.json();
-        //Data gets success or fail for team creation
-        this.populateTeamData();
-    }
 }

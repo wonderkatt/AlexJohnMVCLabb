@@ -55,6 +55,14 @@ namespace BloodBowlTeamManager.Controllers
             .ToList();
         }
 
+        [Route("races")]
+        [HttpGet]
+        public IEnumerable<object> GetRaces()
+        {
+            return context.Races.ToList()
+            .Select((race) => mapper.Map<GetRacesResponse>(race))
+            .ToList();
+        }
         [Route("players/positions")]
         [HttpGet]
         public IEnumerable<object> GetPositionals([FromQuery(Name = "teamid")]string teamid)
@@ -79,7 +87,7 @@ namespace BloodBowlTeamManager.Controllers
 
         [Route("create")]
         [HttpPost]
-        public async ValueTask<Result> CreateTeam()
+        public async ValueTask<Result> CreateTeam([FromBody]CreateTeamModel model)
         {
             string coachId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             Result httpResponse = new Result();
@@ -101,13 +109,17 @@ namespace BloodBowlTeamManager.Controllers
 
                 return httpResponse;
             }
+            Race race = context.Races
+                .Where(r => r.RaceName == model.Race)
+                .First();
+
             context.Teams.Add(new Team
             {
                 Coach = coach,
                 Id = Guid.NewGuid().ToString(),
-                Race = context.Races.First(),
+                Race = race,
                 Players = new List<Player>(),
-                TeamName = "name",
+                TeamName = model.TeamName,
                 Teamvalue = 0,
                 NumberOfReRolls = 0
             });

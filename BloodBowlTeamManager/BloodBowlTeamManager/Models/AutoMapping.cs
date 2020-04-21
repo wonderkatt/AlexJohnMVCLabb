@@ -79,6 +79,10 @@ namespace BloodBowlTeamManager.Models
                 .ForMember(dest => dest.Password, opt => opt.MapFrom(src => src.Password))
                 .ReverseMap();
 
+            CreateMap<Race, GetRacesResponse>()
+                .ForMember(dest => dest.Race, opt => opt.MapFrom(src => src.RaceName))
+                .ReverseMap();
+
         }
     }
 }

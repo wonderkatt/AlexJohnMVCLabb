@@ -31,14 +31,7 @@ namespace BloodBowlTeamManager
             this.context = context;
         }
 
-        //[HttpGet]
-        //public async ValueTask<Result> Login()
-        //{
-        //    Result httpResponse = new Result();
-        //    return httpResponse;
-        //}
         [HttpPost]
-        //[ValidateAntiForgeryToken]
         [Route("login")]
         public async ValueTask<Result> Login([FromBody]UserLoginModelDTO userModel)
         {
@@ -87,7 +80,6 @@ namespace BloodBowlTeamManager
             };
         }
         [HttpPost]
-        //[ValidateAntiForgeryToken]
         [Route("registration")]
         public async ValueTask<Result> Register([FromBody]UserRegistrationModelDTO userModel)
         {
@@ -127,5 +119,15 @@ namespace BloodBowlTeamManager
             httpResponse.Success = true;
             return httpResponse;
         }
+        [HttpGet]
+        [Route("authorize")]
+        public async ValueTask<Result> Authorize()
+        {
+            Result result = new Result();
+            result.Success = signInManager.IsSignedIn(User);
+            return result;
+        }
+
+
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace BloodBowlTeamManager.Controllers
+﻿namespace BloodBowlTeamManager
 {
     public class BuyPlayerModel
     {

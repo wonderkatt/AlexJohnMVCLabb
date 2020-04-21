@@ -47,7 +47,14 @@ export class Login extends Component {
         e.preventDefault();
         let fetchConfig = { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(this.state) }
         let response = await fetch("/account/login", fetchConfig);
-        alert(response.status);
+        let data = await response.json();
+        if (data.success === true) {
+            alert("logged in, should redirect to home.")
+        }
+        else {
+            alert("log in failed, should implement proper error message!")
+
+        }
     }
 }
 
