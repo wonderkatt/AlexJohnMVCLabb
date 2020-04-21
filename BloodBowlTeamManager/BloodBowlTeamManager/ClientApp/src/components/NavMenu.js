@@ -11,7 +11,8 @@ export class NavMenu extends Component {
 
     this.toggleNavbar = this.toggleNavbar.bind(this);
     this.state = {
-      collapsed: true
+        collapsed: true,
+        isLoggedin: false
     };
   }
 
@@ -37,7 +38,10 @@ export class NavMenu extends Component {
                   <NavLink tag={Link} className="text-dark" to="/team/overview">Show Team Overview</NavLink>
                 </NavItem>
                 <NavItem>
-                    <NavLink tag={Link} className="text-dark" to="/login">Login</NavLink>
+                 <NavLink tag={Link} className="text-dark" to="/login">Login</NavLink>
+                </NavItem>
+                <NavItem>
+                 <NavLink tag={Link} className="text-dark" to="/logout">Logout</NavLink>
                 </NavItem>
               </ul>
             </Collapse>
@@ -46,5 +50,14 @@ export class NavMenu extends Component {
       </header>
     );
   }
+    toggleLoginButton(loggedIn) {
+        if (loggedIn === true) {
+
+        }
+        else {
+
+        }
+
+    }
 }
 
